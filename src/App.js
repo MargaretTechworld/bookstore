@@ -1,7 +1,7 @@
 import {
   createBrowserRouter, Route, createRoutesFromElements, RouterProvider,
 } from 'react-router-dom';
-import Books from './components/Books';
+import Books from './components/BookList';
 import Category from './components/Category';
 import RootLayout from './routes/RootLayout';
 
