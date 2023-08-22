@@ -10,9 +10,9 @@ function Button({ type, value }) {
     borderRadius: '3px',
   };
   return (
-    <buttion style={buttonStyle} type={type}>
+    <button style={buttonStyle} type={type}>
       {value}
-    </buttion>
+    </button>
   );
 }
 Button.propTypes = {
