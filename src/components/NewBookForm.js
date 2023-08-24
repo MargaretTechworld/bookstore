@@ -28,7 +28,6 @@ function NewBookForm() {
         placeholder="BookAuthor"
       />
       <Button
-        type="submit"
         value="Add"
       />
     </form>

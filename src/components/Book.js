@@ -14,7 +14,6 @@ function Book({ bookTitle, author }) {
       <h2 style={bookName}>{bookTitle}</h2>
       <p style={bookAuthor}>{author}</p>
       <Button
-        type="button"
         value="Remove"
       />
     </div>
