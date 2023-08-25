@@ -4,18 +4,6 @@ import { useState } from 'react';
 import { addBook } from '../redux/books/BooksSlice';
 import Button from './Button';
 
-const formStyle = {
-  display: 'flex',
-  gap: '10px',
-};
-const bookInput = {
-  width: '30%',
-  padding: '0.5%',
-};
-const bookAuthor = {
-  width: '10%',
-  padding: '0.5%',
-};
 function NewBookForm() {
   const [values, setValues] = useState({ title: '', author: '' });
   const dispatch = useDispatch();
@@ -35,27 +23,31 @@ function NewBookForm() {
     setValues({ title: '', author: '' });
   }
   return (
-    <form style={formStyle}>
-      <input
-        style={bookInput}
-        name="title"
-        type="text"
-        placeholder="title"
-        value={values.title}
-        onChange={handleChange}
-      />
-      <input
-        style={bookAuthor}
-        type="text"
-        name="author"
-        placeholder="BookAuthor"
-        value={values.author}
-        onChange={handleChange}
-      />
-      <Button
-        value="Add"
-        func={() => handleSubmit()}
-      />
+    <form>
+      <h2>ADD NEW BOOK</h2>
+      <div className="form-input">
+        <input
+          className="title-input"
+          name="title"
+          type="text"
+          placeholder="Book Title"
+          value={values.title}
+          onChange={handleChange}
+        />
+        <input
+          className="author-input"
+          type="text"
+          name="author"
+          placeholder="Book Author"
+          value={values.author}
+          onChange={handleChange}
+        />
+        <Button
+          className="input-button"
+          value="Add"
+          func={() => handleSubmit()}
+        />
+      </div>
     </form>
   );
 }
