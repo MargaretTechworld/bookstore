@@ -63,6 +63,7 @@
 ### Key Features <a name="key-features"></a>
 
 - **Initialize project with components (React only)**
+ - **[Use Redux in React components]**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -140,7 +141,6 @@ npm test
 ## 🔭 Future Features <a name="future-features"></a>
 
 - **[Add reducers and actions.]**
-- **[Use Redux in React components]**
 - **[Connect to API]**
 - **[Styling]**
 
