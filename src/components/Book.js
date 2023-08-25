@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Button from './Button';
 
-function Book({ bookTitle, author }) {
+function Book({ bookTitle, author, onClick }) {
   const bookName = {
     margin: '0',
   };
@@ -15,6 +15,7 @@ function Book({ bookTitle, author }) {
       <p style={bookAuthor}>{author}</p>
       <Button
         value="Remove"
+        func={onClick} // Updated prop name to onClick
       />
     </div>
   );
@@ -23,6 +24,7 @@ function Book({ bookTitle, author }) {
 Book.propTypes = {
   author: PropTypes.string.isRequired,
   bookTitle: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired, // Added onClick prop type
 };
 
 export default Book;
