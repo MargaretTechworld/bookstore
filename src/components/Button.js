@@ -1,16 +1,8 @@
 import PropTypes from 'prop-types';
 
-function Button({ value, func }) {
-  const buttonStyle = {
-    color: 'white',
-    backgroundColor: '#0290FF',
-    padding: '0.4%',
-    width: '10%',
-    textAlign: 'center',
-    borderRadius: '3px',
-  };
+function Button({ value, func, className }) {
   return (
-    <button style={buttonStyle} type="button" onClick={func}>
+    <button type="button" className={className} onClick={func}>
       {value}
     </button>
   );
@@ -18,5 +10,6 @@ function Button({ value, func }) {
 Button.propTypes = {
   value: PropTypes.string.isRequired,
   func: PropTypes.func.isRequired,
+  className: PropTypes.string.isRequired,
 };
 export default Button;

@@ -4,12 +4,6 @@ import { addBook, removeBook } from '../redux/books/BooksSlice';
 import NewBookForm from './NewBookForm';
 import Book from './Book';
 
-const bookContainer = {
-  padding: '2%',
-  margin: 'auto',
-  width: '90%',
-};
-
 function Books() {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books);
@@ -24,7 +18,7 @@ function Books() {
   };
 
   return (
-    <div style={bookContainer}>
+    <div>
       {books.map((book) => (
         <div key={book.item_id}>
           <Book

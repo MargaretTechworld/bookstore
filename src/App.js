@@ -1,6 +1,7 @@
 import {
   createBrowserRouter, Route, createRoutesFromElements, RouterProvider,
 } from 'react-router-dom';
+import './App.css';
 import Books from './components/BookList';
 import Category from './components/Category';
 import RootLayout from './routes/RootLayout';
