@@ -30,7 +30,7 @@ function Book({ bookTitle, author, onClick }) {
           <FaCircleNotch className="fa" size="4em" />
           <div>
             <p>
-              89%
+              20%
               <br />
               completed
             </p>

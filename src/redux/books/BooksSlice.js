@@ -1,44 +1,58 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { addBook, removeBook, getBook } from '../Api';
 
 const initialState = {
-  books: [
-    {
-      item_id: 'item1',
-      title: 'The Great Gatsby',
-      author: 'John Smith',
-      category: 'Fiction',
-    },
-    {
-      item_id: 'item2',
-      title: 'Anna Karenina',
-      author: 'Leo Tolstoy',
-      category: 'Fiction',
-    },
-    {
-      item_id: 'item3',
-      title: 'The Selfish Gene',
-      author: 'Richard Dawkins',
-      category: 'Nonfiction',
-    },
-  ],
+  books: [],
+  isLoading: false,
+  isError: '',
 };
 
 const booksSlice = createSlice({
   name: 'books',
   initialState,
-  reducers: {
-    addBook: (state, action) => {
-      const { title, author } = action.payload;
-      if (!title || !author) {
-        return;
-      }
-      state.books.push(action.payload);
-    },
-    removeBook: (state, action) => {
-      state.books = state.books.filter((book) => book.item_id !== action.payload);
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(getBook.pending, (state) => {
+        state.isLoading = true;
+        state.isError = '';
+      })
+      .addCase(getBook.fulfilled, (state, action) => {
+        state.isLoading = false;
+        if (action.payload !== '') {
+          const books = [];
+          const keys = Object.keys(action.payload);
+          keys.forEach((x) => {
+            books.push({ item_id: x, ...action.payload[x][0] });
+          });
+          state.books = books;
+          if (state.books.length === 0) state.isError = 'No result was found!';
+        }
+      })
+      .addCase(getBook.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = action.error.message;
+      })
+      .addCase(addBook.fulfilled, (state, action) => {
+        state.books.push(action.payload);
+      })
+      .addCase(addBook.rejected, (state, action) => {
+        state.isError = action.error.message;
+      })
+      .addCase(removeBook.fulfilled, (state, action) => {
+        if (action.payload !== null) {
+          state.isError = '';
+          state.books = state.books.filter(
+            (book) => book.item_id !== action.payload.item_id,
+          );
+          if (state.books.length === 0) state.isError = 'No result was found!';
+        } else {
+          state.isError = 'Unable to remove record!';
+        }
+      })
+      .addCase(removeBook.rejected, (state, action) => {
+        state.isError = action.error.message;
+      });
   },
 });
-
-export const { addBook, removeBook } = booksSlice.actions;
 export default booksSlice.reducer;

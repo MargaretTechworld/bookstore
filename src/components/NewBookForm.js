@@ -1,11 +1,14 @@
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { addBook } from '../redux/books/BooksSlice';
+import { addBook } from '../redux/Api';
 import Button from './Button';
 
 function NewBookForm() {
-  const [values, setValues] = useState({ title: '', author: '' });
+  const [values, setValues] = useState({
+    title: '',
+    author: '',
+  });
   const dispatch = useDispatch();
   function handleChange(event) {
     const { name, value } = event.target;
@@ -16,8 +19,8 @@ function NewBookForm() {
   }
   function handleSubmit() {
     const newBook = {
-      item_id: uuidv4(),
-      ...values,
+      title: values.title,
+      author: values.author,
     };
     dispatch(addBook(newBook));
     setValues({ title: '', author: '' });
