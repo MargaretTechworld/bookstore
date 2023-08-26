@@ -1,11 +1,17 @@
 header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 2rem;
-  padding: 0 3%;
+  padding: 0 4%;
   background-color: #ffff;
   border-bottom: 1px solid #e8e8e8;
-  margin-bottom: 4%;
+  margin-bottom: 2%;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 
 .logo {
@@ -35,7 +41,7 @@ header {
 .book-container {
   width: 85%;
   margin: auto;
-  margin-bottom: 2%;
+  margin-bottom: 1.4%;
   background-color: #ffff;
   border: 1px solid #e8e8e8;
   padding: 1% 2%;
@@ -170,4 +176,11 @@ input {
 
 .fa {
   color: #0290ff;
+}
+
+.user {
+  color: #0290ff;
+  padding: 10px;
+  border: 1px solid #e8e8e8;
+  border-radius: 50%;
 }
