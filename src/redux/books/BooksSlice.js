@@ -1,11 +1,55 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { addBook, removeBook, getBook } from '../Api';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+// import { addBook, removeBook, getBook } from '../api';
 
 const initialState = {
   books: [],
   isLoading: false,
   isError: '',
 };
+
+export const addBook = createAsyncThunk(
+  'books/addBook',
+  async (book) => {
+    try {
+      await axios.post(
+        'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/xcqxp6ZyT2iIOCHysGbE/books',
+        book,
+      );
+      return book;
+    } catch (e) {
+      throw new Error(e);
+    }
+  },
+);
+export const getBook = createAsyncThunk(
+  'books/getBook',
+  async (book) => {
+    try {
+      const response = await axios.get(
+        'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/xcqxp6ZyT2iIOCHysGbE/books',
+        book,
+      );
+      const { data } = response;
+      return data;
+    } catch (e) {
+      return e;
+    }
+  },
+);
+export const removeBook = createAsyncThunk(
+  'books/deleteBook',
+  async (bookID) => {
+    try {
+      await axios.delete(
+        `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/xcqxp6ZyT2iIOCHysGbE/books/${bookID}`,
+      );
+      return bookID;
+    } catch (e) {
+      throw new Error(e);
+    }
+  },
+);
 
 const booksSlice = createSlice({
   name: 'books',
@@ -15,10 +59,10 @@ const booksSlice = createSlice({
     builder
       .addCase(getBook.pending, (state) => {
         state.isLoading = true;
-        state.isError = '';
       })
       .addCase(getBook.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isError = '';
         if (action.payload !== '') {
           const books = [];
           const keys = Object.keys(action.payload);
@@ -26,7 +70,6 @@ const booksSlice = createSlice({
             books.push({ item_id: x, ...action.payload[x][0] });
           });
           state.books = books;
-          if (state.books.length === 0) state.isError = 'No result was found!';
         }
       })
       .addCase(getBook.rejected, (state, action) => {
@@ -40,15 +83,8 @@ const booksSlice = createSlice({
         state.isError = action.error.message;
       })
       .addCase(removeBook.fulfilled, (state, action) => {
-        if (action.payload !== null) {
-          state.isError = '';
-          state.books = state.books.filter(
-            (book) => book.item_id !== action.payload.item_id,
-          );
-          if (state.books.length === 0) state.isError = 'No result was found!';
-        } else {
-          state.isError = 'Unable to remove record!';
-        }
+        const bookId = action.payload;
+        state.books = state.books.filter((book) => book.item_id !== bookId);
       })
       .addCase(removeBook.rejected, (state, action) => {
         state.isError = action.error.message;
