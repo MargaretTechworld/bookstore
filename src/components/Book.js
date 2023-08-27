@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 import { FaCircleNotch } from 'react-icons/fa';
-import Button from './Button';
+import PropTypes from 'prop-types';
 
 function Book({ bookTitle, author, onClick }) {
   return (
@@ -10,19 +9,15 @@ function Book({ bookTitle, author, onClick }) {
         <h2 className="book-title">{bookTitle}</h2>
         <p className="author">{author}</p>
         <div>
-          <Button
-            className="button comment"
-            value="Comments"
-          />
-          <Button
-            className="button"
-            value="Remove"
-            func={onClick}
-          />
-          <Button
-            className="button"
-            value="Edit"
-          />
+          <button type="button" className="button comment">
+            comments
+          </button>
+          <button type="button" className="button" onClick={onClick}>
+            remove
+          </button>
+          <button type="button" className="button">
+            edit
+          </button>
         </div>
       </div>
       <div className="book-state">
@@ -30,7 +25,7 @@ function Book({ bookTitle, author, onClick }) {
           <FaCircleNotch className="fa" size="4em" />
           <div>
             <p>
-              20%
+              89%
               <br />
               completed
             </p>
@@ -39,20 +34,17 @@ function Book({ bookTitle, author, onClick }) {
         <div className="chapter-div">
           <p className="chapter current">CURRENT CHAPTER</p>
           <p className="chapter number">Chapter 17</p>
-          <Button
-            className="update"
-            value="UPDATE PROGRESS"
-          />
+          <button type="button" className="update">
+            update progress
+          </button>
         </div>
       </div>
     </div>
   );
 }
-
 Book.propTypes = {
   author: PropTypes.string.isRequired,
   bookTitle: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };
-
 export default Book;
