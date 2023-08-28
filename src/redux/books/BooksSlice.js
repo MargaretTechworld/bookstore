@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-// import { addBook, removeBook, getBook } from '../api';
 
 const initialState = {
   books: [],
