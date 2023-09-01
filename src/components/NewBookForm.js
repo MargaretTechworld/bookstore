@@ -1,11 +1,14 @@
-import { v4 as uuidv4 } from 'uuid';
+import { nanoid } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { addBook } from '../redux/books/BooksSlice';
-import Button from './Button';
 
 function NewBookForm() {
-  const [values, setValues] = useState({ title: '', author: '' });
+  const [values, setValues] = useState({
+    title: '',
+    author: '',
+  });
+
   const dispatch = useDispatch();
   function handleChange(event) {
     const { name, value } = event.target;
@@ -16,11 +19,16 @@ function NewBookForm() {
   }
   function handleSubmit() {
     const newBook = {
-      item_id: uuidv4(),
-      ...values,
+      item_id: nanoid(),
+      title: values.title,
+      author: values.author,
+      category: 'fiction',
     };
     dispatch(addBook(newBook));
-    setValues({ title: '', author: '' });
+    setValues({
+      title: '',
+      author: '',
+    });
   }
   return (
     <form>
@@ -42,11 +50,9 @@ function NewBookForm() {
           value={values.author}
           onChange={handleChange}
         />
-        <Button
-          className="input-button"
-          value="Add"
-          func={() => handleSubmit()}
-        />
+        <button type="button" className="input-button" onClick={handleSubmit}>
+          Add
+        </button>
       </div>
     </form>
   );
